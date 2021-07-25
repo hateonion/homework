@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { AllDone } from "../container/allDone";
 import { LoginForm } from "../container/form";
 import { useModal } from "../hooks/useModal";
+import { Button } from "./button/button";
 import "./index.css";
 import { Modal } from "./modal/modal";
 
@@ -13,18 +14,22 @@ export const Main: React.FC = () => {
 
   return (
     <main className="flex-grow flex flex-col justify-center items-center">
-      <h2>A better way to enjoy every day </h2>
-      <span>Be the first to know when we launch</span>
-      <button
-        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      <h2 className="mb-6 text-gray-700 lg:text-5xl text-2xl text-center font-extrabold font-sans">
+        A better way to enjoy every day
+      </h2>
+      <span className="text-xl text-gray-500 mb-6">
+        Be the first to know when we launch
+      </span>
+      <Button
         onClick={() => {
           setVisibility(true);
         }}
       >
         Request an invite
-      </button>
+      </Button>
       <Modal
-        title="Requst"
+        okText="Submit"
+        title="Request"
         visible={visible}
         onClose={() => {
           setVisibility(false);

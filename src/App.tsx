@@ -6,7 +6,7 @@ import { Main } from "./component/main";
 
 function App() {
   return (
-    <div className="h-screen overflow-hidden flex flex-col">
+    <div className="h-screen overflow-hidden flex flex-col p-3 lg:p-5">
       <Header />
       <Main />
       <Footer />
