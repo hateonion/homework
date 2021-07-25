@@ -1,0 +1,13 @@
+.header {
+  &_content {
+    flex-basis: 0;
+  }
+
+  &_spacer {
+    flex-basis: 0;
+  }
+
+  &_icon {
+    flex-basis: 0;
+  }
+}
