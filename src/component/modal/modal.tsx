@@ -1,31 +1,36 @@
 import React from "react";
 import { createPortal } from "react-dom";
-import { useClickOutside } from "../../hooks/useClickOutside";
+import { useModalContainer } from "../../hooks/useModalContainer";
 import "./index.css";
 
 interface ModalProps {
   visible?: boolean;
-  onOk?: () => void;
   onClose?: () => void;
   title: string;
 }
 
-const modalContainer = document.getElementById(
-  "modal-container"
-) as HTMLElement;
-
-export const Modal: React.FC<ModalProps> = ({ title, children, visible }) => {
-  const { targetContainer, isClickOutside } = useClickOutside();
-  const shouldDisplay = visible && !isClickOutside;
+export const Modal: React.FC<ModalProps> = ({
+  title,
+  children,
+  visible,
+  onClose,
+}) => {
+  const { node } = useModalContainer();
+  const shouldDisplay = visible;
   return shouldDisplay
     ? createPortal(
-        <div className="modal__wrapper">
-          <section ref={targetContainer} className="modal__content">
+        <div className="modal__wrapper" onClick={onClose}>
+          <section
+            className="modal__content"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <h3 className="modal__header">{title}</h3>
             {children}
           </section>
         </div>,
-        modalContainer
+        node
       )
     : null;
 };

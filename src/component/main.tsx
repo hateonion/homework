@@ -1,38 +1,49 @@
-import React, { useRef } from "react";
-import { of } from "rxjs";
-import { useObservable } from "rxjs-hooks";
+import React, { useEffect, useState } from "react";
+import { AllDone } from "../container/allDone";
+import { LoginForm } from "../container/form";
 import { useModal } from "../hooks/useModal";
-import { Field, FieldType } from "./form/field";
-import { Form } from "./form/form";
 import "./index.css";
 import { Modal } from "./modal/modal";
 
 export const Main: React.FC = () => {
-  const { visible, toggleModalVisible } = useModal();
-  const formModel = useObservable(() => of({}));
-  const formRef = useRef();
+  const [loginSuccess, setLoginSuccess] = useState(false);
+  const { visible, setVisibility } = useModal(() => {
+    setLoginSuccess(false);
+  });
+
   return (
-    <div className="main">
-      <h2>A better way to enjoy every day {JSON.stringify(formModel)}</h2>
+    <main className="flex-grow flex flex-col justify-center items-center">
+      <h2>A better way to enjoy every day </h2>
       <span>Be the first to know when we launch</span>
       <button
+        className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         onClick={() => {
-          toggleModalVisible();
+          setVisibility(true);
         }}
       >
         Request an invite
       </button>
-      <Modal title="Requst" visible={visible}>
-        <Form>
-          <Field
-            formModel={formModel}
-            name="name"
-            type={FieldType.input}
-            placeholder="blablabla"
+      <Modal
+        title="Requst"
+        visible={visible}
+        onClose={() => {
+          setVisibility(false);
+        }}
+      >
+        {loginSuccess ? (
+          <AllDone
+            onClickOk={() => {
+              setVisibility(false);
+            }}
           />
-          <button type="submit">submit</button>
-        </Form>
+        ) : (
+          <LoginForm
+            onSubmit={() => {
+              setLoginSuccess(true);
+            }}
+          />
+        )}
       </Modal>
-    </div>
+    </main>
   );
 };

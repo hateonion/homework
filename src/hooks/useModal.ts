@@ -1,14 +1,15 @@
 import { useState } from "react";
 
-export const useModal = () => {
+export const useModal = (visibleCallback: () => void) => {
   const [visible, setVisible] = useState(false);
 
-  const toggleModalVisible = () => {
-    setVisible(!visible);
+  const setVisibility = (visible: boolean) => {
+    setVisible(visible);
+    visibleCallback();
   };
 
   return {
     visible,
-    toggleModalVisible,
+    setVisibility,
   };
 };
