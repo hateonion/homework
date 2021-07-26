@@ -3,6 +3,7 @@ import { login } from "../../api/api";
 import { Button } from "../../component/button/button";
 import { Input } from "../../component/form/input";
 import { useLoading } from "../../hooks/useLoading";
+import { hasError, useValidation } from "../../hooks/useValidation";
 import { isEmail } from "../../utils/validator";
 
 interface LoginFormProps {
@@ -22,29 +23,33 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const [email, setEmail] = useState("");
   const [confirmedEmail, setConfirmedEmail] = useState("");
 
-  const [nameError, setNameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
-  const [confirmEmailError, setConfirmEmailError] = useState(false);
-
   const [loginError, setLoginError] = useState(false);
+  const { errors, validate } = useValidation([
+    {
+      name: "name",
+      value: name,
+      validationFn: (value: string) => value.length >= 3,
+    },
+    {
+      name: "email",
+      value: email,
+      validationFn: (value: string) => isEmail(value),
+    },
+    {
+      name: "confirmedEmail",
+      value: confirmedEmail,
+      validationFn: (value: string) => value === email,
+    },
+  ]);
 
   const isSubmitAvailable =
     name !== "" && email !== "" && confirmedEmail !== "";
 
   const submitHandler = async () => {
-    if (name.length <= 3) {
-      setNameError(true);
+    const validationResult = validate();
+    if (Object.keys(validationResult).length > 0) {
       return;
     }
-    if (!isEmail(email)) {
-      setEmailError(true);
-      return;
-    }
-    if (email !== confirmedEmail) {
-      setConfirmEmailError(true);
-      return;
-    }
-
     const result = await login(name, email);
     if (result.status !== 200) {
       setLoginError(true);
@@ -64,7 +69,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         placeholder="Full name"
         onChange={setValueOnchange<string>(setName)}
         value={name}
-        error={nameError}
+        error={hasError(errors, "name")}
         errorText="length of username must > 3"
       />
       <Input
@@ -72,7 +77,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         placeholder="Email"
         onChange={setValueOnchange<string>(setEmail)}
         value={email}
-        error={emailError}
+        error={hasError(errors, "email")}
         errorText="You must input a valid email address"
       />
       <Input
@@ -80,7 +85,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         placeholder="Confirm Email"
         onChange={setValueOnchange<string>(setConfirmedEmail)}
         value={confirmedEmail}
-        error={confirmEmailError}
+        error={hasError(errors, "confirmedEmail")}
         errorText="Please make sure you entered the same email address"
       />
       <div className="flex justify-right">
