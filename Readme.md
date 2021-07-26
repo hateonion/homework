@@ -21,6 +21,8 @@ Run `npm run dev`
 
 Run `npm test`
 
+**notice** : There are just few test cases since time is limited.
+
 ## Running e2e tests
 
 1. Make sure application is running on localhost:3000
