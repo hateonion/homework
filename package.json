@@ -4,7 +4,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "serve": "vite preview",
-    "test": "jest"
+    "test": "jest",
+    "e2e": "testcafe chrome src/__test__/*.e2e.ts"
   },
   "dependencies": {
     "lodash": "^4.17.21",

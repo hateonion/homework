@@ -1,3 +1,14 @@
+
+## Project Structure
++ src sourceFile
+  + \_\_test\_\_  e2e specs stay in here+ 
+  + api api service layer
+  + component sharable component
+  + container stateful and logical container 
+  + hooks shared hooks
+  + utils common Utils
++ public static file
+
 ## Initial Setup
 
 Run `npm install` in project root.
@@ -12,7 +23,8 @@ Run `npm test`
 
 ## Running e2e tests
 
-Run `npm run e2e`
+1. Make sure application is running on localhost:3000
+2. Run `npm run e2e`
 
 ## Build for prod
 Run `npm run build`
