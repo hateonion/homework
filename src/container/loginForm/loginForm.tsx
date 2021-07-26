@@ -46,6 +46,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     name !== "" && email !== "" && confirmedEmail !== "";
 
   const submitHandler = async () => {
+    setLoginError(false);
     const validationResult = validate();
     if (Object.keys(validationResult).length > 0) {
       return;
@@ -60,7 +61,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 
   const { loading, triggerWithLoading } = useLoading(submitHandler);
 
-  const buttonText = loading ? "Submitting" : "Submit";
+  const buttonText = loading ? "Sending" : "Send";
   const isButtonDisabled = !isSubmitAvailable || loading;
   return (
     <form>
@@ -88,9 +89,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         error={hasError(errors, "confirmedEmail")}
         errorText="Please make sure you entered the same email address"
       />
-      <div className="flex justify-right">
+      <div className="flex flex-col items-center">
         <Button
-          className="w-full lg:w-1/4 ml-auto mr-0 justify-center lg:mr-0 mt-2"
+          className="w-full lg:w-1/4 ml-auto mr-0 lg:mr-0 my-2"
           disabled={isButtonDisabled}
           onClick={triggerWithLoading}
         >
