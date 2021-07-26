@@ -18,7 +18,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       className={`${computeDisableStyle(
         disabled
-      )} ${className} py-4 px-10 lg:py-2.5 lg:px-5 text-lg lg:text-sm`}
+      )} ${className} text-center py-2.5 px-5 text-lg lg:text-sm`}
       onClick={onClick}
     >
       {children}

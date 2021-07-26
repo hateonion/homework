@@ -95,16 +95,18 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           Please make sure you entered the same email address
         </span>
       )}
-      <Button
-        className="mr-auto lg:mr-0 ml-auto flex"
-        disabled={isButtonDisabled}
-        onClick={submitHandler}
-      >
-        {submitText}
-      </Button>
-      {loginError && (
-        <span className="text-xs italic text-red-500">server error</span>
-      )}
+      <div className="flex justify-right">
+        <Button
+          className="w-full lg:w-1/4 ml-auto mr-0 justify-center lg:mr-0 mt-2"
+          disabled={isButtonDisabled}
+          onClick={submitHandler}
+        >
+          {submitText}
+        </Button>
+        {loginError && (
+          <span className="text-xs italic text-red-500">server error</span>
+        )}
+      </div>
     </form>
   );
 };

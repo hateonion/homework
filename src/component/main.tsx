@@ -12,6 +12,8 @@ export const Main: React.FC = () => {
     setLoginSuccess(false);
   });
 
+  const modalTitle = loginSuccess ? "All done!" : "Request"
+
   return (
     <main className="flex-grow flex flex-col justify-center items-center">
       <h2 className="mb-6 text-gray-700 lg:text-5xl text-2xl text-center font-extrabold font-sans">
@@ -29,7 +31,7 @@ export const Main: React.FC = () => {
       </Button>
       <Modal
         okText="Submit"
-        title="Request"
+        title={modalTitle}
         visible={visible}
         onClose={() => {
           setVisibility(false);
