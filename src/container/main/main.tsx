@@ -23,6 +23,7 @@ export const Main: React.FC = () => {
         Be the first to know when we launch
       </span>
       <Button
+        className="invite_button"
         onClick={() => {
           setVisibility(true);
         }}
