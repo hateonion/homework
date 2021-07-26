@@ -1,7 +1,8 @@
 import React, { ChangeEvent, useState } from "react";
-import { login } from "../api/api";
-import { Button } from "../component/button/button";
-import { isEmail } from "../utils/validator";
+import { login } from "../../api/api";
+import { Button } from "../../component/button/button";
+import { Input } from "../../component/form/input";
+import { isEmail } from "../../utils/validator";
 
 interface LoginFormProps {
   onSubmit: () => void;
@@ -59,42 +60,30 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   };
   return (
     <form>
-      <input
-        className="my-2 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-        placeholder="Full name"
+      <Input
         name="name"
+        placeholder="Full name"
         onChange={setValueOnchange<string>(setName)}
         value={name}
+        error={nameError}
+        errorText="length of username must > 3"
       />
-      {nameError && (
-        <span className="text-xs italic text-red-500">
-          length of username must {">"} 3
-        </span>
-      )}
-      <input
-        className="my-2 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-        placeholder="Email"
+      <Input
         name="email"
+        placeholder="Email"
         onChange={setValueOnchange<string>(setEmail)}
         value={email}
+        error={emailError}
+        errorText="You must input a valid email address"
       />
-      {emailError && (
-        <span className="text-xs italic text-red-500">
-          You must input a valid email address
-        </span>
-      )}
-      <input
-        className="my-2 w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
-        placeholder="Confirm Email"
+      <Input
         name="confirmedEmail"
+        placeholder="Confirm Email"
         onChange={setValueOnchange<string>(setConfirmedEmail)}
         value={confirmedEmail}
+        error={confirmEmailError}
+        errorText="Please make sure you entered the same email address"
       />
-      {confirmEmailError && (
-        <span className="text-xs italic text-red-500">
-          Please make sure you entered the same email address
-        </span>
-      )}
       <div className="flex justify-right">
         <Button
           className="w-full lg:w-1/4 ml-auto mr-0 justify-center lg:mr-0 mt-2"

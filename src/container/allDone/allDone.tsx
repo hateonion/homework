@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "../component/button/button";
+import { Button } from "../../component/button/button";
 
 interface AllDoneProps {
   onClickOk: () => void;

@@ -1,7 +1,6 @@
 import React, { MouseEventHandler } from "react";
 import { createPortal } from "react-dom";
 import { useModalContainer } from "../../hooks/useModalContainer";
-import { Button } from "../button/button";
 
 interface ModalProps {
   visible?: boolean;
@@ -34,7 +33,9 @@ export const Modal: React.FC<ModalProps> = ({
               e.stopPropagation();
             }}
           >
-            <h3 className="text-xl lg:text-2xl font-bold py-4">{title}</h3>
+            <h3 className="text-xl lg:text-2xl font-bold py-4 text-gray-600">
+              {title}
+            </h3>
             <div className="py-4">{children}</div>
             {/* <Button
               className="mr-0 ml-auto flex"

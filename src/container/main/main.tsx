@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { AllDone } from "../container/allDone";
-import { LoginForm } from "../container/form";
-import { useModal } from "../hooks/useModal";
-import { Button } from "./button/button";
+import { AllDone } from "../allDone/allDone";
+import { LoginForm } from "../loginForm/loginForm";
+import { useModal } from "../../hooks/useModal";
+import { Button } from "../../component/button/button";
 import "./index.css";
-import { Modal } from "./modal/modal";
+import { Modal } from "../../component/modal/modal";
 
 export const Main: React.FC = () => {
   const [loginSuccess, setLoginSuccess] = useState(false);
@@ -12,7 +12,7 @@ export const Main: React.FC = () => {
     setLoginSuccess(false);
   });
 
-  const modalTitle = loginSuccess ? "All done!" : "Request"
+  const modalTitle = loginSuccess ? "All done!" : "Request";
 
   return (
     <main className="flex-grow flex flex-col justify-center items-center">
