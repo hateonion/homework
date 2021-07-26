@@ -13,4 +13,7 @@ export default {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
   testEnvironment: "jsdom",
+  moduleNameMapper: {
+    "\\.(css|sass)$": "identity-obj-proxy",
+  },
 };

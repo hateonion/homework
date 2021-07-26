@@ -1,13 +1,11 @@
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import { createPortal } from "react-dom";
 import { useModalContainer } from "../../hooks/useModalContainer";
 
 interface ModalProps {
   visible?: boolean;
   onClose?: () => void;
-  onOk: MouseEventHandler;
   title: string;
-  okText: string;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -15,14 +13,12 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   visible,
   onClose,
-  okText,
-  onOk,
 }) => {
   const { node } = useModalContainer();
-  const shouldDisplay = visible;
-  return shouldDisplay
+  return visible
     ? createPortal(
         <div
+          role="dialog"
           className="min-w-screen h-screen fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none"
           onClick={onClose}
         >
@@ -37,13 +33,6 @@ export const Modal: React.FC<ModalProps> = ({
               {title}
             </h3>
             <div className="py-4">{children}</div>
-            {/* <Button
-              className="mr-0 ml-auto flex"
-              disabled={isButtonDisabled}
-              onClick={onOk}
-            >
-              Submit
-            </Button> */}
           </section>
         </div>,
         node

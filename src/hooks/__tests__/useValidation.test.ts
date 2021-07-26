@@ -1,4 +1,4 @@
-import { hasError, useValidation } from "../../hooks/useValidation";
+import { hasError, useValidation } from "../useValidation";
 import { act, renderHook } from "@testing-library/react-hooks";
 
 describe("useValidationHooks Tests", () => {

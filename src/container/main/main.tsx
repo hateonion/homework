@@ -30,7 +30,6 @@ export const Main: React.FC = () => {
         Request an invite
       </Button>
       <Modal
-        okText="Submit"
         title={modalTitle}
         visible={visible}
         onClose={() => {

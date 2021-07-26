@@ -14,7 +14,7 @@ function setValueOnchange<T>(
   setFunction: React.Dispatch<React.SetStateAction<T>>
 ) {
   return (e: ChangeEvent) => {
-    setFunction(e.target.value);
+    setFunction((e.target as any).value);
   };
 }
 

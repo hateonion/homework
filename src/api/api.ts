@@ -3,8 +3,7 @@ enum HTTPMethods {
 }
 
 export const login = async (name: string, email: string) => {
-  const result = await apiCall("/prod/fake-auth", { name, email });
-  return result;
+  return apiCall("/prod/fake-auth", { name, email });
 };
 
 export const apiCall = async (
@@ -12,12 +11,11 @@ export const apiCall = async (
   data: Record<string, any>,
   method: HTTPMethods = HTTPMethods.Post
 ) => {
-  const result = await fetch(`${import.meta.env.VITE_BACKEND_URL}${path}`, {
+  return fetch(`${process.env.VITE_BACKEND_URL}${path}`, {
     body: JSON.stringify(data),
     headers: new Headers({
       "Content-Type": "application/json",
     }),
     method,
   });
-  return result;
 };
