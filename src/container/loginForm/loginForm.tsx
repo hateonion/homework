@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { login } from "../../api/api";
 import { Button } from "../../component/button/button";
 import { Input } from "../../component/form/input";
+import { useLoading } from "../../hooks/useLoading";
 import { isEmail } from "../../utils/validator";
 
 interface LoginFormProps {
@@ -20,19 +21,16 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [confirmedEmail, setConfirmedEmail] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [confirmEmailError, setConfirmEmailError] = useState(false);
-  const [submitText, setSubmitText] = useState("Submit");
 
   const [loginError, setLoginError] = useState(false);
 
   const isSubmitAvailable =
     name !== "" && email !== "" && confirmedEmail !== "";
 
-  const isButtonDisabled = !isSubmitAvailable || loading;
   const submitHandler = async () => {
     if (name.length <= 3) {
       setNameError(true);
@@ -47,17 +45,18 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       return;
     }
 
-    setLoading(true);
-    setSubmitText("Submitting");
     const result = await login(name, email);
-    setSubmitText("Submit");
-    setLoading(false);
     if (result.status !== 200) {
       setLoginError(true);
       return;
     }
     onSubmit();
   };
+
+  const { loading, triggerWithLoading } = useLoading(submitHandler);
+
+  const buttonText = loading ? "Submitting" : "Submit";
+  const isButtonDisabled = !isSubmitAvailable || loading;
   return (
     <form>
       <Input
@@ -88,9 +87,9 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         <Button
           className="w-full lg:w-1/4 ml-auto mr-0 justify-center lg:mr-0 mt-2"
           disabled={isButtonDisabled}
-          onClick={submitHandler}
+          onClick={triggerWithLoading}
         >
-          {submitText}
+          {buttonText}
         </Button>
         {loginError && (
           <span className="text-xs italic text-red-500">server error</span>
